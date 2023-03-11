@@ -1,0 +1,10 @@
+{
+  "name": "ai_tool_box",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "dependencies": {
+    "dayjs": "^1.11.7",
+    "firstui-uni": "^1.8.0"
+  }
+}

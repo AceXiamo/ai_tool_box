@@ -1,0 +1,21 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index"
+		},
+		{
+			"path": "pages/chat/index"
+		}
+	],
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"fui-(.*)": "firstui-uni/firstui/fui-$1/fui-$1.vue"
+		}
+	},
+	"globalStyle": {
+	  "navigationStyle": "custom",
+	  "navigationBarTextStyle": "white"
+	},
+	"uniIdRouter": {}
+}

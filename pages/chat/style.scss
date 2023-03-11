@@ -1,0 +1,128 @@
+.content {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background-color: #F6F6F9;
+
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+
+    .chat-list {
+      height: 0;
+      flex: auto;
+      padding: 20rpx 0;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 40rpx;
+        margin: 0 40rpx;
+        background: linear-gradient(to bottom, #F6F6F9 0%, rgba(246, 246, 249, 0.9) 30%, #F6F6F900 100%);
+        z-index: 10;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 20rpx;
+        height: 40rpx;
+        margin: 0 40rpx;
+        background: linear-gradient(to top, #F6F6F9 0%, rgba(246, 246, 249, 0.9) 30%, #F6F6F900 100%);
+        z-index: 10;
+      }
+
+      > scroll-view {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 50rpx;
+
+        .chat-item {
+          display: flex;
+          padding: 0 40rpx;
+          gap: 30rpx;
+          margin-top: 30rpx;
+
+          &:nth-child(2n) {
+            flex-direction: row-reverse;
+          }
+
+          &:last-child {
+            padding-bottom: 100rpx;
+          }
+
+          .avatar {
+            height: 80rpx;
+            width: 80rpx;
+
+            image {
+              height: 100%;
+              width: 100%;
+              border-radius: 100%;
+            }
+          }
+
+          .chat-content {
+            flex: auto;
+            width: 0;
+            background-color: white;
+            padding: 20rpx;
+            border-radius: 14rpx;
+
+            text {
+              word-break: break-all;
+              font-size: 26rpx;
+              color: #333333;
+            }
+          }
+        }
+      }
+
+      .chat-reverse {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+
+  .say-container {
+    position: fixed;
+    bottom: 0;
+    margin: 40rpx;
+    width: calc(100vw - 80rpx);
+    height: 80rpx;
+    display: flex;
+    gap: 20rpx;
+
+    .say-input {
+      background-color: white;
+      border-radius: 14rpx;
+      width: 0;
+      flex: auto;
+      padding: 0 20rpx;
+      font-size: 26rpx;
+      color: #333333;
+      display: flex;
+      align-items: center;
+
+      input {
+        width: 100%;
+      }
+    }
+
+    .send-btn {
+      width: 100rpx;
+      background-color: white;
+      border-radius: 14rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

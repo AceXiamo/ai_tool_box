@@ -1,0 +1,86 @@
+@font-face {
+  font-family: 'AllFont';
+  /* 筑紫A丸 */
+  src: url('https://alioss.xiamoqwq.com/font/web_font.woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'emoji-font';
+  src: url('https://alioss.xiamoqwq.com/font/seguiemj.ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Arial", "emoji-font";
+}
+
+.font {
+  font-family: "AllFont", "emoji-font" !important;
+}
+
+.main_title {
+  font-size: 50rpx;
+  font-weight: bold;
+  position: relative;
+  padding: 0 40rpx;
+
+  .title_text {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+
+    text:nth-child(2) {
+      margin-left: 20rpx;
+      color: #333333;
+      font-weight: bold;
+    }
+  }
+}
+
+.has-back {
+  .back {
+    line-height: 60rpx;
+  }
+
+  .title_text {
+    left: 80rpx
+  }
+}
+
+.remove-line {
+  text-decoration: line-through;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.tip-dot {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  padding-left: 20rpx;
+  line-height: 34rpx;
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 10rpx;
+    width: 10rpx;
+    border-radius: 100%;
+    background-color: #D9D9D9;
+    left: 0;
+    top: 12rpx;
+  }
+}
+
+.color-blur-500 {
+  color: #3B82F6;
+}
