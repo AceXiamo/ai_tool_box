@@ -50,7 +50,7 @@
       <view class="the-modal">
         <view class="modal-container">
           <view class="close-icon">
-            <fui-icon name="close" fontWeight="bold" size="40" color="#7C3AED"></fui-icon>
+            <fui-icon @click="show = false" name="close" fontWeight="bold" size="40" color="#7C3AED"></fui-icon>
           </view>
           <view class="food-input">
             <input type="text" v-model="food" placeholder="请输入 🍜"/>
