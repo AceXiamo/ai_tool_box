@@ -84,3 +84,7 @@ body {
 .color-blur-500 {
   color: #3B82F6;
 }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

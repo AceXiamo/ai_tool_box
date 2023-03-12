@@ -45,15 +45,16 @@
         flex-direction: column;
         padding-bottom: 50rpx;
 
+        .reverse-item {
+          flex-direction: row-reverse;
+        }
+
         .chat-item {
           display: flex;
           padding: 0 40rpx;
           gap: 20rpx;
           margin-top: 50rpx;
-
-          &:nth-child(2n-1) {
-            flex-direction: row-reverse;
-          }
+          opacity: 0;
 
           &:last-child {
             padding-bottom: 100rpx;
@@ -76,6 +77,22 @@
             background-color: white;
             border-radius: 14rpx;
             font-size: 26rpx;
+          }
+        }
+
+        .chat-item-in {
+          animation: in-ani forwards .2s linear;
+        }
+
+        @keyframes in-ani {
+          0% {
+            opacity: 0;
+            transform: translateY(-10rpx);
+          }
+
+          100% {
+            opacity: 1;
+            transform: translateY(0);
           }
         }
       }
@@ -118,6 +135,31 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
+    }
+
+    .send-loading {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(255, 255, 255, .6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 14rpx;
+      opacity: 0;
+      transition: all .2s;
+
+      img {
+        height: 60rpx;
+        width: 60rpx;
+      }
+    }
+
+    .send-loading-show {
+      opacity: 1;
     }
   }
 }

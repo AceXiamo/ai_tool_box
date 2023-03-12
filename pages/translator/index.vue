@@ -39,14 +39,15 @@
           <fui-textarea placeholder="请输入需要翻译的内容" maxlength="300" height="300rpx" v-model="text" :borderBottom="false" :isCounter="true"></fui-textarea>
         </view>
         <view class="confirm-button">
-          <fui-button type="primary" width="200rpx" height="70rpx" size="28" @click="submit">翻译 📄</fui-button>
+          <fui-button type="primary" width="200rpx" height="70rpx" size="28" :disabled="flag" :loading="flag" @click="submit">翻译 📄</fui-button>
         </view>
         <view class="result-title">
           <fui-icon name="screen" fontWeight="bold" size="45" color="#7C3AED"></fui-icon>
           <text>Result</text>
         </view>
         <view class="to-container translator-result">
-          <text :style="{color: result?'':'#D1D5DB'}">{{ result || '这里将会展示翻译结果 🍃' }}</text>
+          <zero-markdown-view :themeColor="'#007AFF'"
+                              :markdown="result || '这里将会展示翻译结果 🍃'"></zero-markdown-view>
         </view>
       </view>
     </view>
@@ -56,6 +57,7 @@
 
 <script>
 import LbPicker from 'uni-lb-picker'
+import { aiSend } from "@/js/api";
 export default {
   components: {
     LbPicker
@@ -72,12 +74,13 @@ export default {
         inputBottom: 0,
         whiteLineH: 0
       },
-      fromList: ['自动', '英语', '汉语', '日语', '德语'],
+      fromList: ['自动识别', '英语', '汉语', '日语', '德语'],
       toList: ['英语', '汉语', '日语', '德语'],
       from: '自动识别',
       to: '英语',
       text: '',
-      result: ''
+      result: '',
+      flag: false
     }
   },
   onLoad() {
@@ -93,8 +96,36 @@ export default {
       uni.navigateBack({})
     },
     submit() {
-      this.$refs.toast.show({
-        text: '没有输入需要翻译的内容 🥲'
+      if (this.flag) return;
+      if (!this.text) {
+        this.$refs.toast.show({
+          text: '没有输入需要翻译的内容 🥲'
+        })
+        return
+      }
+      let suffix = "，"
+      // if (this.from === '自动识别') {
+      //   suffix += "我不知道这段文字是哪种语言，"
+      // } else {
+      //   suffix += "这是一段" + this.from + "，"
+      // }
+      suffix += "请帮我将其翻译成" + this.to
+      let message = "'" + this.text + "'" + suffix;
+      let data = {
+        messageId: this.messageId,
+        type: 'translator',
+        body: {
+          model: 'gpt-3.5-turbo',
+          messages: [{
+            role: 'user',
+            content: message
+          }]
+        }
+      }
+      this.flag = true
+      aiSend(data).then((res) => {
+        this.result = res.data.body.content
+        this.flag = false
       })
     },
     showLanguageFromPicker() {

@@ -14,12 +14,16 @@
       </view>
       <view class="chat-list">
         <scroll-view :scroll-y="true" :scroll-top="scroll">
-          <view class="chat-item" v-for="(item, index) in list" :key="index">
+          <view :class="['chat-item', 'chat-item-in', item.role == 'user'?'reverse-item':'']" v-for="(item, index) in list"
+                :key="index">
             <view class="avatar">
-              <image src="https://qwq.link/images/avatar.jpg" mode="aspectFit"></image>
+              <image
+                  :src="item.role == 'user' ? 'https://image.qwq.link/images/2022/12/31/IS431PHSORRE1PSBQ.jpg'
+                  : 'https://image.qwq.link/images/2023/03/12/ma_logo.png'"
+                  mode="aspectFill"></image>
             </view>
             <view class="chat-content">
-              <zero-markdown-view :themeColor="'#007AFF'" :markdown="item.html"></zero-markdown-view>
+              <zero-markdown-view :themeColor="'#007AFF'" :markdown="item.content"></zero-markdown-view>
             </view>
           </view>
         </scroll-view>
@@ -28,16 +32,22 @@
     <view class="say-container"
           :style="{marginBottom: config.isAppleAndHasLine && config.inputBottom == 0 ? 'env(safe-area-inset-bottom)' : '40rpx', bottom: config.inputBottom + 'px'}">
       <view class="say-input">
-        <input :adjust-position="false" @focus="inputFocus" @blur="inputBlur"/>
+        <input :adjust-position="false" v-model="text" @focus="inputFocus" @blur="inputBlur"/>
       </view>
-      <view class="send-btn">
+      <view class="send-btn" @click="submit">
         <fui-icon name="pullup-fill" fontWeight="bold" size="45" color="#16A34A"></fui-icon>
+        <view :class="['send-loading', flag?'send-loading-show':'']">
+          <img src="https://alioss.xiamoqwq.com/source/2023-03-03/loading_3.svg" alt=""/>
+        </view>
       </view>
     </view>
+    <fui-toast ref="toast"></fui-toast>
   </view>
 </template>
 
 <script>
+import { aiSend } from "@/js/api";
+
 export default {
   data() {
     return {
@@ -53,16 +63,10 @@ export default {
       },
       index: 0,
       scroll: 0,
-      list: [
-        {
-          role: 'user',
-          html: "可以帮我写一段Java的HelloWorld示例吗"
-        },
-        {
-          role: 'assistant',
-          html: "\n\n```java\npublic class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, world!\");\n    }\n}\n```\n或者更简单地：\n```java\nclass HelloWorld {\n    public static void main(String args[]) {\n        System.out.println(\"Hello, world!\");\n    }\n}\n```"
-        }
-      ],
+      list: [],
+      text: '',
+      messageId: '',
+      flag: ''
     }
   },
   onLoad() {
@@ -70,11 +74,20 @@ export default {
     this.config.height = uni.getStorageSync('topHeight')
     this.config.isAppleAndHasLine = uni.getStorageSync('isAppleAndHasLine')
     this.config.windowH = uni.getSystemInfoSync().windowHeight
+
+    this.init()
   },
   mounted() {
     this.inputHandle()
   },
   methods: {
+    init() {
+      const res = uni.getStorageSync("chat")
+      if (JSON.stringify(res) != '{}') {
+        this.messageId = res.id
+        this.list = JSON.parse(res['messageContent'])
+      }
+    },
     async inputHandle() {
       let res = await this.domRect('.say-container')
       this.config.contentH = res.top
@@ -95,6 +108,36 @@ export default {
         query.select(tag).boundingClientRect((rect) => {
           resolve(rect)
         }).exec()
+      })
+    },
+    submit() {
+      if (this.flag) return;
+      if (!this.text) {
+        this.$refs.toast.show({
+          text: '没有输入任何内容 🥲'
+        })
+        return
+      }
+      let msg = {
+        role: 'user',
+        content: this.text
+      }
+      this.list.push(msg)
+      this.text = ''
+
+      let data = {
+        messageId: this.messageId,
+        type: 'chat',
+        body: {
+          model: 'gpt-3.5-turbo',
+          messages: this.list
+        }
+      }
+      this.flag = true
+      aiSend(data).then((res) => {
+        this.list.push(res.data.body)
+        this.messageId = res.data.messageId
+        this.flag = false
       })
     }
   }

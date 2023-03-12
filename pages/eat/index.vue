@@ -22,20 +22,25 @@
           <text>吃了 ? 🤔</text>
         </view>
         <view class="food-container">
+          <view class="item" @click="removeThis(item)" v-for="(item, index) in list" :key="index">{{ item }}</view>
           <view class="add item" @click="showModal">
             <fui-icon name="plus" fontWeight="bold" size="30" color="#2563EB"></fui-icon>
             <text>添加</text>
           </view>
         </view>
+        <view class="select-more">
+          <view @click="addThis(item)" class="item" v-for="(item, index) in normal" :key="index">{{ item }}</view>
+        </view>
         <view class="confirm-button">
-          <fui-button type="primary" width="200rpx" height="70rpx" size="28" @click="submit">提交 🍥</fui-button>
+          <fui-button type="primary" width="200rpx" height="70rpx" size="28" :disabled="flag" :loading="flag" @click="submit">提交 🍥</fui-button>
         </view>
         <view class="result-title">
           <fui-icon name="screen" fontWeight="bold" size="45" color="#7C3AED"></fui-icon>
           <text>Result</text>
         </view>
         <view class="to-container translator-result">
-          <text :style="{color: result?'':'#D1D5DB'}">{{ result || '这里将会展示分析结果 🍃' }}</text>
+          <zero-markdown-view :themeColor="'#007AFF'"
+                              :markdown="result || '这里将会展示分析结果 🍃'"></zero-markdown-view>
         </view>
       </view>
     </view>
@@ -48,12 +53,12 @@
             <fui-icon name="close" fontWeight="bold" size="40" color="#7C3AED"></fui-icon>
           </view>
           <view class="food-input">
-            <input type="text" placeholder="请输入 🍜"/>
+            <input type="text" v-model="food" placeholder="请输入 🍜"/>
           </view>
           <view class="bottom-button">
             <fui-button background="#D1D5DB" width="100rpx" height="50rpx" size="24" @click="show = false">返回
             </fui-button>
-            <fui-button type="primary" width="100rpx" height="50rpx" size="24">确定</fui-button>
+            <fui-button type="primary" width="100rpx" height="50rpx" size="24" @click="addFood">确定</fui-button>
           </view>
         </view>
       </view>
@@ -64,6 +69,7 @@
 
 <script>
 import LbPicker from 'uni-lb-picker'
+import { aiSend } from "@/js/api";
 
 export default {
   components: {
@@ -81,9 +87,23 @@ export default {
         inputBottom: 0,
         whiteLineH: 0
       },
+      normal: [
+        '苹果 🍎',
+        '香蕉 🍌',
+        '面条 🍜',
+        '米饭 🍚',
+        '鱼 🐟',
+        '咖啡 ☕️',
+        '牛奶 🥛',
+        '鸡蛋 🥚',
+        '汉堡 🍔',
+        '薯条 🍟'
+      ],
       list: [],
       result: '',
       show: false,
+      food: '',
+      flag: false
     }
   },
   onLoad() {
@@ -95,16 +115,65 @@ export default {
   mounted() {
   },
   methods: {
+    removeThis(item) {
+      this.list.splice(this.list.indexOf(item), 1)
+    },
     back() {
       uni.navigateBack({})
     },
     submit() {
-      this.$refs.toast.show({
-        text: '没有输入任何内容 🥲'
+      if (this.flag) return;
+      if (this.list.length < 1) {
+        this.$refs.toast.show({
+          text: '没有添加任何内容食物 🥲'
+        })
+        return
+      }
+      let suffix = "这是我所吃的食物，请对我给出的这些食物进行分析，然后提供一些建议"
+      let message = ""
+      this.list.forEach(v => {
+        message += v + '，'
+      })
+      message += suffix
+      let data = {
+        messageId: this.messageId,
+        type: 'eat',
+        body: {
+          model: 'gpt-3.5-turbo',
+          messages: [{
+            role: 'user',
+            content: message
+          }]
+        }
+      }
+      this.flag = true
+      aiSend(data).then((res) => {
+        this.result = res.data.body.content
+        this.flag = false
       })
     },
     showModal() {
       this.show = true
+    },
+    addFood() {
+      if (this.list.indexOf(this.food) > -1)  {
+        this.$refs.toast.show({
+          text: this.food + ' 已添加 🤔'
+        })
+      } else {
+        this.list.push(this.food)
+        this.show = false
+        this.food = ''
+      }
+    },
+    addThis(item) {
+      if (this.list.indexOf(item) > -1)  {
+        this.$refs.toast.show({
+          text: item + ' 已添加 🤔'
+        })
+        return
+      }
+      this.list.push(item)
     }
   }
 }

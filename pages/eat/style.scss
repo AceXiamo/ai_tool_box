@@ -15,13 +15,15 @@
       background-color: white;
       display: flex;
       margin: 40rpx 40rpx 0 40rpx;
+      gap: 10rpx;
+      flex-wrap: wrap;
 
       .item {
         padding: 5rpx 15rpx;
         border-radius: 14rpx;
-        color: #2563EB;
-        background-color: #DBEAFE;
-        border: 1rpx dashed;
+        color: #10B981;
+        background-color: #D1FAE5;
+        border: 2rpx dashed;
         font-size: 26rpx;
         display: flex;
         align-items: center;
@@ -34,7 +36,31 @@
       }
 
       .add {
+        color: #2563EB;
+        background-color: #DBEAFE;
+      }
+    }
 
+    .select-more {
+      display: flex;
+      gap: 10rpx;
+      flex-wrap: wrap;
+      margin: 40rpx 40rpx 0 40rpx;
+
+      .item {
+        padding: 5rpx 15rpx;
+        border-radius: 14rpx;
+        color: #6B7280;
+        background-color: white;
+        font-size: 26rpx;
+        display: flex;
+        align-items: center;
+        filter: brightness(1);
+        transition: all .1s;
+
+        &:active {
+          filter: brightness(0.9);
+        }
       }
     }
   }
