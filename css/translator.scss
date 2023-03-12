@@ -1,0 +1,73 @@
+.scroll-container {
+  height: 0;
+  flex: auto;
+  overflow-y: scroll;
+  padding-bottom: 40rpx;
+
+  .tips {
+    display: flex;
+    flex-direction: column;
+    margin: 20rpx 40rpx 0 40rpx;
+    gap: 10rpx;
+    background-color: white;
+    padding: 20rpx;
+    border-radius: 14rpx;
+
+    text {
+      font-size: 24rpx;
+      color: #9CA3AF;
+      padding-left: 20rpx;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 10rpx;
+        height: 10rpx;
+        background-color: #F59E0B;
+        border-radius: 100%;
+        left: 0;
+        top: 12rpx;
+      }
+    }
+  }
+
+  .from-container, .to-container {
+    margin: 40rpx 40rpx 0 40rpx;
+    background-color: white;
+    border-radius: 14rpx;
+    min-height: 335rpx;
+    overflow: hidden;
+    color: #333333;
+    font-size: 28rpx;
+  }
+
+  .to-container {
+    padding: 32rpx;
+    display: flex;
+
+    text {
+      word-break: break-all;
+    }
+  }
+
+  .confirm-button {
+    display: flex;
+    justify-content: flex-end;
+    margin: 40rpx 40rpx 0 40rpx;
+  }
+
+  .result-title {
+    margin: 40rpx 40rpx 0 40rpx;
+    display: flex;
+    align-items: flex-end;
+
+    > text {
+      margin-left: 10rpx;
+      font-size: 36rpx;
+      font-weight: bold;
+    }
+  }
+}

@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "dayjs": "^1.11.7",
-    "firstui-uni": "^1.8.0"
+    "firstui-uni": "^1.8.0",
+    "uni-lb-picker": "^1.2.0"
   }
 }

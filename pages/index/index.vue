@@ -28,6 +28,15 @@
             <text class="tip-dot color-blur-500">https://gpt.takina.ink</text>
           </view>
         </view>
+        <view class="tip-item">
+          <view class="tip-title">
+            <text>#</text>
+            <text>More</text>
+          </view>
+          <view class="tip-content">
+            <text class="tip-dot font-bold remove-line">持续划水中 ... 🧨️</text>
+          </view>
+        </view>
       </view>
       <view class="item-container">
         <view class="ai-item" @click="toChat">
@@ -39,7 +48,7 @@
             <text class="remove-line">🔥 不如问问神奇海螺</text>
           </view>
         </view>
-        <view class="ai-item">
+        <view class="ai-item" @click="toTranslator">
           <view class="top">
             <text>翻译</text>
             <fui-icon name="right" fontWeight="bold" size="45" color="#6EBE61"></fui-icon>
@@ -48,7 +57,7 @@
             <text>💬 What’s this ?</text>
           </view>
         </view>
-        <view class="ai-item">
+        <view class="ai-item" @click="toPolish">
           <view class="top">
             <text>文本润色</text>
             <fui-icon name="right" fontWeight="bold" size="45" color="#6EBE61"></fui-icon>
@@ -57,7 +66,7 @@
             <text>🕸️ ? ? ?</text>
           </view>
         </view>
-        <view class="ai-item">
+        <view class="ai-item" @click="toEat">
           <view class="top">
             <text>吃什么？</text>
             <fui-icon name="right" fontWeight="bold" size="45" color="#6EBE61"></fui-icon>
@@ -115,6 +124,21 @@ export default {
     toChat() {
       uni.navigateTo({
         url: '/pages/chat/index'
+      })
+    },
+    toTranslator() {
+      uni.navigateTo({
+        url: '/pages/translator/index'
+      })
+    },
+    toPolish() {
+      uni.navigateTo({
+        url: '/pages/polish/index'
+      })
+    },
+    toEat() {
+      uni.navigateTo({
+        url: '/pages/eat/index'
       })
     }
   }

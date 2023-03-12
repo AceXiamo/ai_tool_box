@@ -8,18 +8,18 @@
           <fui-icon name="arrowleft" fontWeight="bold" size="40" color="#7C3AED"></fui-icon>
         </view>
         <view class="title_text">
-          <text>📝</text>
+          <text>✏️</text>
           <text>Chat</text>
         </view>
       </view>
       <view class="chat-list">
         <scroll-view :scroll-y="true" :scroll-top="scroll">
-          <view class="chat-item" v-for="index of 20" :key="index">
+          <view class="chat-item" v-for="(item, index) in list" :key="index">
             <view class="avatar">
               <image src="https://qwq.link/images/avatar.jpg" mode="aspectFit"></image>
             </view>
             <view class="chat-content">
-              <text>关注永雏塔菲喵，关注永雏塔菲谢谢喵</text>
+              <zero-markdown-view :themeColor="'#007AFF'" :markdown="item.html"></zero-markdown-view>
             </view>
           </view>
         </scroll-view>
@@ -52,7 +52,17 @@ export default {
         whiteLineH: 0
       },
       index: 0,
-      scroll: 0
+      scroll: 0,
+      list: [
+        {
+          role: 'user',
+          html: "可以帮我写一段Java的HelloWorld示例吗"
+        },
+        {
+          role: 'assistant',
+          html: "\n\n```java\npublic class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, world!\");\n    }\n}\n```\n或者更简单地：\n```java\nclass HelloWorld {\n    public static void main(String args[]) {\n        System.out.println(\"Hello, world!\");\n    }\n}\n```"
+        }
+      ],
     }
   },
   onLoad() {
@@ -75,11 +85,9 @@ export default {
     },
     inputFocus(e) {
       this.config.inputBottom = e.detail.height
-      // this.scrollTop += 1; //滚到底部
     },
     inputBlur(e) {
       this.config.inputBottom = 0;
-      // this.scrollTop += 1; //滚到底部
     },
     domRect(tag) {
       let query = wx.createSelectorQuery()

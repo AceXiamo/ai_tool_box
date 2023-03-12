@@ -5,6 +5,15 @@
 		},
 		{
 			"path": "pages/chat/index"
+		},
+		{
+			"path": "pages/translator/index"
+		},
+		{
+			"path": "pages/polish/index"
+		},
+		{
+			"path": "pages/eat/index"
 		}
 	],
 	"easycom": {

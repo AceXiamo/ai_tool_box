@@ -1,0 +1,86 @@
+.content {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background-color: #F6F6F9;
+
+  .polish-container {
+    display: flex;
+    flex-direction: column;
+
+    .food-container {
+      padding: 20rpx;
+      border-radius: 14rpx;
+      background-color: white;
+      display: flex;
+      margin: 40rpx 40rpx 0 40rpx;
+
+      .item {
+        padding: 5rpx 15rpx;
+        border-radius: 14rpx;
+        color: #2563EB;
+        background-color: #DBEAFE;
+        border: 1rpx dashed;
+        font-size: 26rpx;
+        display: flex;
+        align-items: center;
+        filter: brightness(1);
+        transition: all .1s;
+
+        &:active {
+          filter: brightness(0.9);
+        }
+      }
+
+      .add {
+
+      }
+    }
+  }
+
+  .the-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: rgba(0, 0, 0, .2);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .modal-container {
+      width: 100%;
+      margin: 100rpx;
+      background-color: white;
+      border-radius: 14rpx;
+      padding: 30rpx;
+      display: flex;
+      flex-direction: column;
+
+      .close-icon {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .food-input {
+        margin-top: 40rpx;
+        border-radius: 100rpx;
+
+        input {
+          border-bottom:1rpx solid #E5E7EB;
+          font-size: 24rpx;
+          padding: 15rpx 20rpx;
+        }
+      }
+
+      .bottom-button {
+        margin-top: 60rpx;
+        display: flex;
+        justify-content: flex-end;
+        gap: 30rpx
+      }
+    }
+  }
+}

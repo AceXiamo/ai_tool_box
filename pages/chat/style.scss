@@ -8,6 +8,7 @@
   .chat-container {
     display: flex;
     flex-direction: column;
+    min-height: 200rpx;
 
     .chat-list {
       height: 0;
@@ -15,28 +16,28 @@
       padding: 20rpx 0;
       position: relative;
 
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: 40rpx;
-        margin: 0 40rpx;
-        background: linear-gradient(to bottom, #F6F6F9 0%, rgba(246, 246, 249, 0.9) 30%, #F6F6F900 100%);
-        z-index: 10;
-      }
+      //&::before {
+      //  content: '';
+      //  position: absolute;
+      //  left: 0;
+      //  right: 0;
+      //  height: 40rpx;
+      //  margin: 0 40rpx;
+      //  background: linear-gradient(to bottom, #F6F6F9 0%, rgba(246, 246, 249, 0.9) 30%, #F6F6F900 100%);
+      //  z-index: 10;
+      //}
 
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 20rpx;
-        height: 40rpx;
-        margin: 0 40rpx;
-        background: linear-gradient(to top, #F6F6F9 0%, rgba(246, 246, 249, 0.9) 30%, #F6F6F900 100%);
-        z-index: 10;
-      }
+      //&::after {
+      //  content: '';
+      //  position: absolute;
+      //  left: 0;
+      //  right: 0;
+      //  bottom: 20rpx;
+      //  height: 40rpx;
+      //  margin: 0 40rpx;
+      //  background: linear-gradient(to top, #F6F6F9 0%, rgba(246, 246, 249, 0.9) 30%, #F6F6F900 100%);
+      //  z-index: 10;
+      //}
 
       > scroll-view {
         height: 100%;
@@ -47,10 +48,10 @@
         .chat-item {
           display: flex;
           padding: 0 40rpx;
-          gap: 30rpx;
-          margin-top: 30rpx;
+          gap: 20rpx;
+          margin-top: 50rpx;
 
-          &:nth-child(2n) {
+          &:nth-child(2n-1) {
             flex-direction: row-reverse;
           }
 
@@ -73,14 +74,8 @@
             flex: auto;
             width: 0;
             background-color: white;
-            padding: 20rpx;
             border-radius: 14rpx;
-
-            text {
-              word-break: break-all;
-              font-size: 26rpx;
-              color: #333333;
-            }
+            font-size: 26rpx;
           }
         }
       }

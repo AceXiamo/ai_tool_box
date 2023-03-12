@@ -1,0 +1,12 @@
+.content {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background-color: #F6F6F9;
+
+  .polish-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,48 @@
+.content {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background-color: #F6F6F9;
+
+  .translator-container {
+    display: flex;
+    flex-direction: column;
+
+    .scroll-container {
+      .translator-select {
+        display: flex;
+        margin: 40rpx 40rpx 0 40rpx;
+        gap: 30rpx;
+
+        .the-icon {
+          display: flex;
+          align-items: center;
+        }
+
+        .select-item {
+          flex: 1;
+          background-color: white;
+          border-radius: 14rpx;
+          height: 70rpx;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+
+          .language-text {
+            font-size: 26rpx;
+            color: #333333;
+            pointer-events: none;
+            transform: translateX(-10rpx);
+          }
+
+          fui-icon {
+            position: absolute;
+            right: 10rpx;
+          }
+        }
+      }
+    }
+  }
+}
