@@ -80,6 +80,12 @@ export default {
         })
         return
       }
+      if (this.text.length < 10) {
+        this.$refs.toast.show({
+          text: '内容过短 🥲'
+        })
+        return
+      }
       let suffix = "，请对这段文字进行润色"
       let message = "'" + this.text + "'" + suffix
       let data = {
