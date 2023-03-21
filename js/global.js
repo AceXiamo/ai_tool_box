@@ -16,7 +16,7 @@ const getLoginUser = () => {
 
 const updateCacheUser = (user) => {
     let res = getLoginUser()
-    res.avatar = user.avatar
+    if (user.avatar) res.avatar = user.avatar
     res.nickname = user.nickname
     saveLoginRes(res)
 }

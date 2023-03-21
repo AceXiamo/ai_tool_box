@@ -47,6 +47,11 @@
 
         .reverse-item {
           flex-direction: row-reverse;
+
+          .chat-content {
+            flex: unset !important;
+            width: unset !important;
+          }
         }
 
         .chat-item {
@@ -60,15 +65,10 @@
             padding-bottom: 100rpx;
           }
 
-          .avatar {
-            height: 80rpx;
-            width: 80rpx;
-
-            image {
-              height: 100%;
-              width: 100%;
+          .avatar image {
+              height: 80rpx;
+              width: 80rpx;
               border-radius: 100%;
-            }
           }
 
           .chat-content {
@@ -95,10 +95,6 @@
             transform: translateY(0);
           }
         }
-      }
-
-      .chat-reverse {
-        flex-direction: row-reverse;
       }
     }
   }

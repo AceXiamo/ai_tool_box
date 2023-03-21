@@ -18,7 +18,7 @@
                 :key="index">
             <view class="avatar">
               <image
-                  :src="item.role == 'user' ? 'https://image.qwq.link/images/2022/12/31/IS431PHSORRE1PSBQ.jpg'
+                  :src="item.role == 'user' ? avatar
                   : 'https://image.qwq.link/images/2023/03/12/ma_logo.png'"
                   mode="aspectFill"></image>
             </view>
@@ -47,6 +47,7 @@
 
 <script>
 import { aiSend } from "@/js/api";
+import { avatarHandle, getLoginUser } from "@/js/global";
 
 export default {
   data() {
@@ -66,7 +67,8 @@ export default {
       list: [],
       text: '',
       messageId: '',
-      flag: ''
+      flag: '',
+      avatar: ''
     }
   },
   onLoad() {
@@ -82,6 +84,8 @@ export default {
   },
   methods: {
     init() {
+      this.avatar = avatarHandle(getLoginUser().avatar)
+
       const res = uni.getStorageSync("chat")
       if (JSON.stringify(res) != '{}') {
         this.messageId = res.id

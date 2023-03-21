@@ -15,7 +15,7 @@
       <view class="scroll-container">
         <view class="tips">
           <text>太长的文段暂时不支持，Max 500</text>
-          <text>或者等待后期发布新对 Release 🔥</text>
+          <text>或者等待后期发布新的 Release 🔥</text>
         </view>
         <view class="from-container translator-result">
           <fui-textarea placeholder="请输入需要润色的内容" maxlength="500" height="300rpx" v-model="text" :borderBottom="false" :isCounter="true"></fui-textarea>
