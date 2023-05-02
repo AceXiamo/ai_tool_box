@@ -1,42 +1,13 @@
 <template>
   <view>
-    <view class="tips-container">
-      <view class="tip-item">
+    <view class="tips-container" v-if="config.show">
+      <view class="tip-item" v-for="(info, index) in config.content" :key="index">
         <view class="tip-title">
           <text>#</text>
-          <text>About</text>
+          <text>{{ info.tag }}</text>
         </view>
         <view class="tip-content">
-          <text class="tip-dot font-bold">众所周知，这应该是一个基于OpenAI的小工具 🫠</text>
-          <text class="tip-dot font-bold">一些扩展实际上使用基础的对话就能够完成，而我喜欢折腾 😎</text>
-        </view>
-      </view>
-      <view class="tip-item">
-        <view class="tip-title">
-          <text>#</text>
-          <text>Web端</text>
-        </view>
-        <view class="tip-content">
-          <text class="tip-dot color-blur-500">https://gpt.takina.ink</text>
-        </view>
-      </view>
-      <view class="tip-item">
-        <view class="tip-title">
-          <text>#</text>
-          <text>我的博客</text>
-        </view>
-        <view class="tip-content">
-          <text class="tip-dot color-blur-500">https://takina.ink</text>
-        </view>
-      </view>
-      <view class="tip-item">
-        <view class="tip-title">
-          <text>#</text>
-          <text>More</text>
-        </view>
-        <view class="tip-content">
-          <text class="tip-dot font-bold">留言 & 建议请转到博客 📝</text>
-          <text class="tip-dot font-bold remove-line">持续划水中 ... 🧨️</text>
+          <text v-for="(item, index2) in info.items" :key="index2" :class="item.class">{{ item.text }}</text>
         </view>
       </view>
     </view>
@@ -107,7 +78,7 @@
 </template>
 
 <script>
-import { history } from "@/js/api";
+import { getConfig, history } from "@/js/api";
 
 export default {
   name: "main",
@@ -119,10 +90,14 @@ export default {
         type: 'chat'
       },
       his: [],
+      config: {},
       loading: false
     }
   },
   created() {
+    getConfig({key: 'main'}).then(res => {
+      this.config = JSON.parse(res.data.configValue)
+    })
     this.loadHis()
   },
   methods: {

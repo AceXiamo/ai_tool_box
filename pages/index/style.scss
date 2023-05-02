@@ -250,6 +250,26 @@
   }
 }
 
+.top-cover {
+  margin: 40rpx 40rpx 0 40rpx;
+  background-image: url("https://image.qwq.link/images/2022/08/13/F5S7GZ62TXSCH464YO.png");
+  width: calc(100% - 80rpx);
+  aspect-ratio: 1646 / 957;
+  background-size: 100% 100%;
+  border-radius: 14rpx;
+}
+
+.cover-desc {
+  margin: 10rpx 40rpx 0 40rpx;
+  font-size: 20rpx;
+  color: #9CA3AF;
+  position: relative;
+
+  &::before {
+    content: '';
+  }
+}
+
 .user-container {
   margin: 40rpx 40rpx 0 40rpx;
   display: flex;
@@ -365,5 +385,4 @@
       }
     }
   }
-
 }

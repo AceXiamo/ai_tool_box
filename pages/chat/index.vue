@@ -18,7 +18,7 @@
                 :key="index">
             <view class="avatar">
               <image
-                  :src="item.role == 'user' ? avatar
+                  :src="item.role == 'user' ? (avatar || 'https://qwq.link/images/avatar.jpg')
                   : 'https://image.qwq.link/images/2023/03/12/ma_logo.png'"
                   mode="aspectFill"></image>
             </view>

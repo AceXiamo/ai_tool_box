@@ -1,6 +1,9 @@
 {
 	"pages": [
 		{
+			"path": "pages/say/index"
+		},
+		{
 			"path": "pages/index/index"
 		},
 		{

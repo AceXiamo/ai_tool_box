@@ -12,10 +12,14 @@ const aiSend = (data) => {
 const history = (data) => {
     return request.post(host + "/ai/history", data)
 }
+const getConfig = (data) => {
+    return request.post(host + "/another/config", data)
+}
 
 export {
     login,
     updateUserInfo,
     aiSend,
-    history
+    history,
+    getConfig
 }

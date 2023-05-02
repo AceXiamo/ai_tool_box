@@ -1,8 +1,11 @@
 <template>
   <view>
+    <view class="top-cover" v-if="config.show"
+          :style="{backgroundImage: 'url(' + config.url + ')', aspectRatio: config.width + '/' + config.height}"></view>
+    <view class="cover-desc" v-if="config.show">{{ config.desc }}</view>
     <view class="user-container">
       <view class="user-content" @click="userEdit">
-        <image class="avatar" :src="avatar" mode="aspectFit"></image>
+        <image class="avatar" :src="avatar || 'https://qwq.link/images/avatar.jpg'" mode="aspectFit"></image>
         <text>{{ nickname }}</text>
         <view class="more">
           <text>{{ createTime }}</text>
@@ -33,6 +36,7 @@
 <script>
 import dayjs from "dayjs";
 import { avatarHandle, getLoginUser } from "@/js/global";
+import { getConfig } from "@/js/api";
 
 export default {
   name: "user",
@@ -40,10 +44,14 @@ export default {
     return {
       nickname: '',
       avatar: '',
-      createTime: '-'
+      createTime: '-',
+      config: ''
     }
   },
   created() {
+    getConfig({key: 'cover'}).then(res => {
+      this.config = JSON.parse(res.data.configValue)
+    })
     this.init()
   },
   methods: {
