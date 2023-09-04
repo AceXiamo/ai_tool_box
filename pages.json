@@ -1,10 +1,10 @@
 {
 	"pages": [
 		{
-			"path": "pages/say/index"
+			"path": "pages/index/index"
 		},
 		{
-			"path": "pages/index/index"
+			"path": "pages/say/index"
 		},
 		{
 			"path": "pages/chat/index"
