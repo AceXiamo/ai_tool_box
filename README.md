@@ -1,4 +1,4 @@
-# AI_TOOL_BOX Service
+# AI_TOOL_BOX
 
 这是一个基于OpenAI的微信小程序，用于提供一些AI相关的服务。
 
