@@ -1,11 +1,8 @@
 import qs from 'qs'
 import { getLoginUser, loginHandle } from "@/js/global";
 
-const domain = "openai.xiamoqwq.com"
-const host = "https://" + domain
-
-// const domain = "localhost:8080"
-// const host = "http://" + domain
+const domain = "localhost:8080"
+const host = "http://" + domain
 
 const setAuth = (options) => {
     let user = getLoginUser()
