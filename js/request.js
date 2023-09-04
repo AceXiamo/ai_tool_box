@@ -4,6 +4,9 @@ import { getLoginUser, loginHandle } from "@/js/global";
 const domain = "openai.xiamoqwq.com"
 const host = "https://" + domain
 
+// const domain = "localhost:8080"
+// const host = "http://" + domain
+
 const setAuth = (options) => {
     let user = getLoginUser()
     if (user) options.header = {
@@ -25,7 +28,7 @@ const flagHandle = (url) => {
 
 const request = {
     qs: qs,
-    get: (url, params) => {
+    get: (url, params, toast) => {
         return new Promise(resolve => {
             if (apiFlag[url]) resolve({})
             let options = {
@@ -49,8 +52,8 @@ const request = {
             uni.request(options)
         })
     },
-    post: (url, params, data) => {
-        return new Promise(resolve => {
+    post: (url, params, data, toast) => {
+        return new Promise((resolve, reject) => {
             if (apiFlag[url]) resolve({})
             let options = {
                 url: '',
@@ -63,7 +66,12 @@ const request = {
                             uni.request(options)
                         })
                     } else {
-                        resolve(res.data)
+                        if (res.data.code === 500) {
+                            toast.show({
+                                text: res.data.msg
+                            })
+                            reject()
+                        } else resolve(res.data)
                     }
                 }
             }
