@@ -1,9 +1,8 @@
 <template>
   <view class="content">
-    <view class="polish-container"
-          :style="{height: config.windowH - config.inputBottom + 'px'}">
-      <view :style="{height: config.top + 'px'}" class="top-container"></view>
-      <view class="main_title has-back" :style="{height: config.height + 'px'}">
+    <view class="polish-container" :style="{ height: config.windowH - config.inputBottom + 'px' }">
+      <view :style="{ height: config.top + 'px' }" class="top-container"></view>
+      <view class="main_title has-back" :style="{ height: config.height + 'px' }">
         <view class="back" @click="back">
           <fui-icon name="arrowleft" fontWeight="bold" size="40" color="#7C3AED"></fui-icon>
         </view>
@@ -18,10 +17,12 @@
           <text>或者等待后期发布新的 Release 🔥</text>
         </view>
         <view class="from-container translator-result">
-          <fui-textarea placeholder="请输入需要润色的内容" maxlength="500" height="300rpx" v-model="text" :borderBottom="false" :isCounter="true"></fui-textarea>
+          <fui-textarea placeholder="请输入需要润色的内容" maxlength="500" height="300rpx" v-model="text" :borderBottom="false"
+            :isCounter="true"></fui-textarea>
         </view>
         <view class="confirm-button">
-          <fui-button type="primary" width="200rpx" height="70rpx" size="28" :disabled="flag" :loading="flag" @click="submit">润色 📄</fui-button>
+          <fui-button type="primary" width="200rpx" height="70rpx" size="28" :disabled="flag" :loading="flag"
+            @click="submit">润色 📄</fui-button>
         </view>
         <view class="result-title">
           <fui-icon name="screen" fontWeight="bold" size="45" color="#7C3AED"></fui-icon>
@@ -100,8 +101,9 @@ export default {
         }
       }
       this.flag = true
-      aiSend(data).then((res) => {
+      aiSend(data, this.$refs.toast).then((res) => {
         this.result = res.data.body.content
+      }).finally(() => {
         this.flag = false
       })
     },

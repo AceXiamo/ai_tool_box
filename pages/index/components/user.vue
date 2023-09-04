@@ -1,7 +1,7 @@
 <template>
   <view>
     <view class="top-cover" v-if="config.show"
-          :style="{backgroundImage: 'url(' + config.url + ')', aspectRatio: config.width + '/' + config.height}"></view>
+      :style="{ backgroundImage: 'url(' + config.url + ')', aspectRatio: config.width + '/' + config.height }"></view>
     <view class="cover-desc" v-if="config.show">{{ config.desc }}</view>
     <view class="user-container">
       <view class="user-content" @click="userEdit">
@@ -13,8 +13,8 @@
         <view class="status-dot"></view>
       </view>
       <view class="right-content">
-        <image class="fire-svg" mode="aspectFit"
-               src="https://alioss.xiamoqwq.com/source/2023-03-21/loading_5.svg"></image>
+        <image class="fire-svg" mode="aspectFit" src="https://alioss.xiamoqwq.com/source/2023-03-21/loading_5.svg">
+        </image>
         <view class="todo font">
           <text>//</text>
           <text>TODO</text>
@@ -37,6 +37,7 @@
 import dayjs from "dayjs";
 import { avatarHandle, getLoginUser } from "@/js/global";
 import { getConfig } from "@/js/api";
+import Cache from "@/js/cache";
 
 export default {
   name: "user",
@@ -49,17 +50,26 @@ export default {
     }
   },
   created() {
-    getConfig({key: 'cover'}).then(res => {
-      this.config = JSON.parse(res.data.configValue)
-    })
     this.init()
   },
   methods: {
+    loadConfig() {
+      let cover = Cache.get('config_cover')
+      if (cover) {
+        this.config = cover
+      } else {
+        getConfig({key: 'cover'}).then(res => {
+          this.config = JSON.parse(res.data.configValue)
+          Cache.set('config_cover', this.config, '5m')
+        })
+      }
+    },
     init() {
       let user = getLoginUser()
       this.avatar = avatarHandle(user.avatar)
       this.nickname = user.nickname
       this.createTime = dayjs(user.createTime).format('YYYY-MM-DD')
+      this.loadConfig()
     },
     userEdit() {
       uni.navigateTo({

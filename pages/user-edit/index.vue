@@ -86,13 +86,19 @@ export default {
     async submit() {
       let data = {}
       if (!this.avatar.includes("https://")) {
-        let path = await this.uploadAvatar()
-        this.avatar = avatarHandle(path)
-        data.avatar = path
+        let res = await this.uploadAvatar()
+        if (res.code === 500) {
+          this.$refs.toast.show({
+          text: res.msg
+        })
+          return
+        }
+        this.avatar = avatarHandle(res.msg)
+        data.avatar = res.msg
       }
       data.nickname = this.nickname
       data.openId = this.openId
-      updateUserInfo(data).then(() => {
+      updateUserInfo(data, this.$refs.toast).then(() => {
         updateCacheUser(data)
         this.$refs.toast.show({
           text: '更新成功 🌈'
@@ -103,7 +109,7 @@ export default {
       })
     },
     uploadAvatar() {
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
         uni.uploadFile({
           url: host + "/file/upload", //仅为示例，非真实的接口地址
           filePath: this.avatar,
@@ -112,7 +118,7 @@ export default {
             Authorization: getLoginUser().token
           },
           success: (result) => {
-            resolve(JSON.parse(result.data).msg)
+            resolve(JSON.parse(result.data))
           }
         });
       })

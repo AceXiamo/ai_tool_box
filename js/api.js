@@ -1,19 +1,19 @@
-import { host, request, wsHost } from "@/js/request";
+import { host, request } from "@/js/request";
 
-const login = (params) => {
-    return request.post(host + "/wx/login", params)
+const login = (params, toast) => {
+    return request.post(host + "/wx/login", params, null, toast)
 }
-const updateUserInfo = (data) => {
-    return request.post(host + "/wx/update", '', data)
+const updateUserInfo = (data, toast) => {
+    return request.post(host + "/wx/update", null, data, toast)
 }
-const aiSend = (data) => {
-    return request.post(host + "/ai/send", '', data)
+const aiSend = (data, toast) => {
+    return request.post(host + "/ai/send", null, data, toast)
 }
-const history = (data) => {
-    return request.post(host + "/ai/history", data)
+const history = (params, toast) => {
+    return request.post(host + "/ai/history", params, null, toast)
 }
-const getConfig = (data) => {
-    return request.post(host + "/another/config", data)
+const getConfig = (params, toast) => {
+    return request.post(host + "/another/config", params, null, toast)
 }
 
 export {

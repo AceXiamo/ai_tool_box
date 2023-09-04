@@ -1,9 +1,8 @@
 <template>
   <view class="content">
-    <view class="translator-container"
-          :style="{height: config.windowH - config.inputBottom + 'px'}">
-      <view :style="{height: config.top + 'px'}" class="top-container"></view>
-      <view class="main_title has-back" :style="{height: config.height + 'px'}">
+    <view class="translator-container" :style="{ height: config.windowH - config.inputBottom + 'px' }">
+      <view :style="{ height: config.top + 'px' }" class="top-container"></view>
+      <view class="main_title has-back" :style="{ height: config.height + 'px' }">
         <view class="back" @click="back">
           <fui-icon name="arrowleft" fontWeight="bold" size="40" color="#7C3AED"></fui-icon>
         </view>
@@ -20,7 +19,8 @@
         </view>
         <view class="translator-select">
           <view class="select-item" @click="showLanguageFromPicker">
-            <lb-picker ref="languageFromPicker" cancel-color="#D1D5DB" confirm-color="#10B981" radius="14rpx" :list="fromList" v-model="from">
+            <lb-picker ref="languageFromPicker" cancel-color="#D1D5DB" confirm-color="#10B981" radius="14rpx"
+              :list="fromList" v-model="from">
               <view class="language-text">{{ from }}</view>
             </lb-picker>
             <fui-icon name="turningdown" fontWeight="bold" size="30" color="#D1D5DB"></fui-icon>
@@ -29,25 +29,27 @@
             <fui-icon name="switch" fontWeight="bold" size="40" color="#7C3AED"></fui-icon>
           </view>
           <view class="select-item" @click="showLanguageToPicker">
-            <lb-picker ref="languageToPicker" cancel-color="#D1D5DB" confirm-color="#10B981" radius="14rpx" :list="toList" v-model="to">
+            <lb-picker ref="languageToPicker" cancel-color="#D1D5DB" confirm-color="#10B981" radius="14rpx" :list="toList"
+              v-model="to">
               <view class="language-text">{{ to }}</view>
             </lb-picker>
             <fui-icon name="turningdown" fontWeight="bold" size="30" color="#D1D5DB"></fui-icon>
           </view>
         </view>
         <view class="from-container translator-result">
-          <fui-textarea placeholder="请输入需要翻译的内容" maxlength="300" height="300rpx" v-model="text" :borderBottom="false" :isCounter="true"></fui-textarea>
+          <fui-textarea placeholder="请输入需要翻译的内容" maxlength="300" height="300rpx" v-model="text" :borderBottom="false"
+            :isCounter="true"></fui-textarea>
         </view>
         <view class="confirm-button">
-          <fui-button type="primary" width="200rpx" height="70rpx" size="28" :disabled="flag" :loading="flag" @click="submit">翻译 📄</fui-button>
+          <fui-button type="primary" width="200rpx" height="70rpx" size="28" :disabled="flag" :loading="flag"
+            @click="submit">翻译 📄</fui-button>
         </view>
         <view class="result-title">
           <fui-icon name="screen" fontWeight="bold" size="45" color="#7C3AED"></fui-icon>
           <text>Result</text>
         </view>
         <view class="to-container translator-result">
-          <zero-markdown-view :themeColor="'#007AFF'"
-                              :markdown="result || '这里将会展示翻译结果 🍃'"></zero-markdown-view>
+          <zero-markdown-view :themeColor="'#007AFF'" :markdown="result || '这里将会展示翻译结果 🍃'"></zero-markdown-view>
         </view>
       </view>
     </view>
@@ -123,8 +125,9 @@ export default {
         }
       }
       this.flag = true
-      aiSend(data).then((res) => {
+      aiSend(data, this.$refs.toast).then((res) => {
         this.result = res.data.body.content
+      }).finally(() => {
         this.flag = false
       })
     },

@@ -138,9 +138,10 @@ export default {
         }
       }
       this.flag = true
-      aiSend(data).then((res) => {
+      aiSend(data, this.$refs.toast).then((res) => {
         this.list.push(res.data.body)
         this.messageId = res.data.messageId
+      }).finally(() => {
         this.flag = false
       })
     }
